@@ -10,7 +10,7 @@ def read_csv(btc_data):
     return data
 
 
-# Get all time high and date from csv
+# Get all time high close and date from csv
 def all_time_high(data):
     all_time_high = 0
     all_time_high_date = ""
@@ -22,8 +22,17 @@ def all_time_high(data):
     return all_time_high_date, all_time_high 
     
 
+# Get all time low close and date from csv
 def all_time_low(data):
-    pass
+    all_time_low = 999999
+    all_time_low_date = ""
+    # skip first row
+    for row in data[1:]:
+        if float(row[5]) < all_time_low:
+            all_time_low = float(row[5])
+            all_time_low_date = row[1]
+    return all_time_low_date, all_time_low
+
 
 def percent_change(data, start, end):
     pass
@@ -43,8 +52,8 @@ if __name__ == '__main__':
     ath_date, ath_price = all_time_high(btc_data)
     print('\n BTC/USD reached its all time high on {} at a price of ${:.2f}'.format(ath_date, ath_price))
 
-    # atl_date, atl_price = all_time_low(btc_data)
-    # print('BTC/USD reached its all time low on {} at a price of ${:.2f}'.format(atl_date, atl_price))
+    atl_date, atl_price = all_time_low(btc_data)
+    print('\n BTC/USD reached its all time low on {} at a price of ${:.2f}'.format(atl_date, atl_price))
 
     # date1 = '2015-10-09'
     # date2 = '2021-03-08'
