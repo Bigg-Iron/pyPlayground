@@ -1,60 +1,54 @@
-import yfinance as yf
+import csv
 
-msft = yf.Ticker("MSFT")
 
-# get stock info
-msft.info
+def read_csv(btc_data):
+    data = []
+    with open(btc_data) as csvfile:
+        csv_reader = csv.reader(csvfile, delimiter=',')
+        for row in csv_reader:
+            data.append(row)
+    return data
 
-# get historical market data
-hist = msft.history(period="max")
 
-# show actions (dividends, splits)
-msft.actions
+# Get all time high and date from csv
+def all_time_high(data):
+    all_time_high = 0
+    all_time_high_date = ""
+    # skip first row
+    for row in data[1:]:
+        if float(row[5]) > all_time_high:
+            all_time_high = float(row[5])
+            all_time_high_date = row[1]
+    return all_time_high_date, all_time_high 
+    
 
-# show dividends
-msft.dividends
+def all_time_low(data):
+    pass
 
-# show splits
-msft.splits
+def percent_change(data, start, end):
+    pass
 
-# show financials
-msft.financials
-msft.quarterly_financials
+def largest_intraday_percentage_change(data):
+    pass
 
-# show major holders
-msft.major_holders
+def run_tests():
+    print("Running tests...")
 
-# show institutional holders
-msft.institutional_holders
 
-# show balance sheet
-msft.balance_sheet
-msft.quarterly_balance_sheet
+if __name__ == '__main__':
+    btc_data = read_csv('BTCUSD_day.csv')
+    run_tests()
 
-# show cashflow
-msft.cashflow
-msft.quarterly_cashflow
+    print('Analysis of BTC/USD Price Data')
+    ath_date, ath_price = all_time_high(btc_data)
+    print('\n BTC/USD reached its all time high on {} at a price of ${:.2f}'.format(ath_date, ath_price))
 
-# show earnings
-msft.earnings
-msft.quarterly_earnings
+    # atl_date, atl_price = all_time_low(btc_data)
+    # print('BTC/USD reached its all time low on {} at a price of ${:.2f}'.format(atl_date, atl_price))
 
-# show sustainability
-msft.sustainability
+    # date1 = '2015-10-09'
+    # date2 = '2021-03-08'
+    # print('Percent change from {} to {}: {:.2f}%'.format(date1, date2, percent_change(btc_data, date1, date2)))
 
-# show analysts recommendations
-msft.recommendations
-
-# show next event (earnings, etc)
-msft.calendar
-
-# show ISIN code - *experimental*
-# ISIN = International Securities Identification Number
-msft.isin
-
-# show options expirations
-msft.options
-
-# get option chain for specific expiration
-opt = msft.option_chain('2021-04-30')
-# data available via: opt.calls, opt.puts
+    # idc_date, idc_price = largest_intraday_percentage_change(btc_data)
+    # print('Largest intraday change occurred on {} and was {:.2f}%'.format(idc_date, idc_price))
