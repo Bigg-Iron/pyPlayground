@@ -45,7 +45,7 @@ def run_tests():
 
 
 if __name__ == '__main__':
-    btc_data = read_csv('BTCUSD_day.csv')
+    btc_data = read_csv('data/BTCUSD_day.csv')
     run_tests()
 
     print('Analysis of BTC/USD Price Data')
