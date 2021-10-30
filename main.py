@@ -40,13 +40,10 @@ def percent_change(data, start, end):
 def largest_intraday_percentage_change(data):
     pass
 
-def run_tests():
-    print("Running tests...")
 
 
 if __name__ == '__main__':
     btc_data = read_csv('data/BTCUSD_day.csv')
-    run_tests()
 
     print('Analysis of BTC/USD Price Data')
     ath_date, ath_price = all_time_high(btc_data)
